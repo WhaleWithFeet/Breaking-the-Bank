@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         function interperetLogin(){
+            
             let userinput = document.getElementById("username").value;
             let passinput = document.getElementById("password").value;
             let info = [
                 {username: "whalewithfeet", password: "YAY"},
                 {username: "snaileatinggrass", password: "YIPPEE"}
-            ]
+            ];
             for(let i = 0; i < info.length;i++){
-                if(userinput == info[i].username && passinput == info[i].password){
-                    
+                if((userinput == info[i].username) && (passinput == info[i].password)){
+                    window.location.assign("homepage.html");
+                    break;
                 }
+                
             }
 
         }
@@ -38,7 +43,7 @@
         <br>
         <br>
         <div>
-            <button>LOGIN</button>
+            <button onclick="interperetLogin()">LOGIN</button>
         </div>
     </form>
     
