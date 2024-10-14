@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        function interperetLogin(){
+        function interperetLogin(event){
+
+            event.preventDefault();
             
             let userinput = document.getElementById("username").value;
             let passinput = document.getElementById("password").value;
@@ -13,12 +15,13 @@
                 {username: "snaileatinggrass", password: "YIPPEE"}
             ];
             for(let i = 0; i < info.length;i++){
-                if((userinput == info[i].username) && (passinput == info[i].password)){
-                    window.location.assign("homepage.html");
-                    break;
+                if((userinput === info[i].username) && (passinput === info[i].password)){
+                    window.location.href = "homepage.html";
+                    return;
                 }
-                
             }
+
+            alert("You put in a username or password which is not in our database. Try again.");
 
         }
     </script>
@@ -30,7 +33,7 @@
     <h1 style="text-align: center;">Login Page</h1>
     <br>
     <p style="text-align: center; font-size: 20px">Welcome to The Vault!<br>The Vault is a banking applications that combines both security and ease of access for the user.</p>
-    <form style="text-align: center; padding-top: 70px; font-size: 20px;">
+    <form style="text-align: center; padding-top: 70px; font-size: 20px;" onsubmit="interperetLogin(event)">
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" placeholder="Enter your username">
@@ -43,7 +46,7 @@
         <br>
         <br>
         <div>
-            <button onclick="interperetLogin()">LOGIN</button>
+            <button type="submit">LOGIN</button>
         </div>
     </form>
     
