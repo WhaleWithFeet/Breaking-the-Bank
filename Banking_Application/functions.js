@@ -10,6 +10,8 @@ window.onload = function() {
     releaseStorage(); 
 };
 
+// Functions which allow an account to be analyzed and stored
+
 function interperetLogin(event){
     releaseStorage(); 
     
@@ -40,7 +42,7 @@ function interperetSignUp(event){
             return;
         }
     }
-    addAccount(userinput, passinput);
+    addAccount(userinput, passinput, 0, 0);
     window.location.href = "login.html";
 }
 
@@ -56,15 +58,17 @@ function addAccount(username, password, checkingBalance, savingsBalance){
 }
 
 function storeAccounts(){
-    sessionStorage.setItem('VaultAccounts', JSON.stringify(accounts));
+    localStorage.setItem('VaultAccounts', JSON.stringify(accounts));
 }
 function releaseStorage(){
     let temp_account = JSON.parse(localStorage.getItem('VaultAccounts')) || [];
-    alert(accounts[i]);
     for(let i = 0; i < temp_account.length;i++){
         accounts.push(temp_account[i]);
     }
 }
+//
+//Functions involving transactions within the account
+//
 function checkCheckingBalance(accNum){
     alert("Your current balance is $" + accounts[accNum].checkingBalance);
     return;
