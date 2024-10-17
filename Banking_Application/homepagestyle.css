@@ -1,0 +1,44 @@
+.toptext{
+    text-align: center;
+    display:block;
+    font-size:30px;
+    font-family:stencil;
+    text-decoration:underline;
+    background-color:black;
+    color:white;
+    left:0px;
+    right:0px;
+    width:100%;
+    position:absolute;
+    height:12%;
+    padding:0px;
+    margin:0px;
+
+}
+.box{
+    border: 2px solid black;
+    padding: 20px;
+    width: 15%;
+    background-color:azure;
+}
+.box:hover{
+    text-decoration:underline;
+    color:blue;
+}
+.end{
+    color:white;
+    position:absolute;
+    width: 100%;
+    border: 2px solid black;
+    min-height: 5%;
+    bottom:0px;
+    background-color:black;
+    left:0px;
+}
+.footerbox{
+    font-family:stencil;
+    text-decoration:underline;
+    padding:5px;
+    left:5px;
+    display:inline-block;
+}

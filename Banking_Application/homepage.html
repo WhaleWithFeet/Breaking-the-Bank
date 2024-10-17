@@ -1,38 +1,48 @@
 <!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="homepagestyle.css">
 <html>
-<head>
-    <style>
-        .box{
-            border: 2px solid black;
-            padding: 20px;
-            width: 300px;
-        }
-    </style>
+<head> 
     <title>The Bank</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="functions.js">
+        interperetLogin(event);
+        checkBalance();
+    </script>
 </head>
-<body style="background-color:khaki;">
-    <h1 style="text-align: center;">The Vault</h1>
-    <img src="vaultdoor.jpg" style="display: block; margin-left: auto; margin-right: auto" alt="Image of vault door" width="300" height="200">
-    <div style="padding-top: 30px">
-        <div class="box">
-            <p>Banks stuff</p>
+<header>
+    <h1 class="toptext">
+        <p>The Vault</p>
+        <p style="font-size:15px; text-decoration:none">Banking Company</p>
+    </h1>
+</header>
+<body style="padding: 0px; margin:0px; background-image:url('bankvault.jpg'); background-repeat:no-repeat; background-size:cover;">
+    <div style="padding-top: 200px">
+        <div class="box", onclick="checkBalance()">
+            <p>Check Checking Account Balance</p>
         </div>
     </div>
     <div style="padding-top: 30px">
         <div class="box">
-            <p>Banks stuff</p>
+            <p>Check Savings Account Balance</p>
         </div>
     </div>
     <div style="padding-top: 30px">
         <div class="box">
-            <p>Banks stuff</p>
+            <p>Deposit</p>
         </div>
     </div>
     <div style="padding-top: 30px">
         <div class="box">
-            <p>Banks stuff</p>
+            <p>Withdrawal</p>
         </div>
     </div>
-    
 </body>
+<footer class="end">
+    <div>
+        <div class="footerbox">
+            <p>Copyright 2024 TheVault Inc. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
 </html>
