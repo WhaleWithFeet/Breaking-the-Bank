@@ -18,7 +18,7 @@
 .box{
     border: 2px solid black;
     padding: 20px;
-    width: 15%;
+    width: 20%;
     background-color:azure;
 }
 .box:hover{

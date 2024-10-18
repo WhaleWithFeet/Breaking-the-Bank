@@ -2,7 +2,17 @@
 <link rel="stylesheet" type="text/css" href="homepagestyle.css">
 <html>
 <head> 
-    <title style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">The Bank</title>
+    <title>The Bank</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="functions.js">
+        checkCheckingBalance();
+        checkSavingsBalance();
+        depositChecking();
+        depositSavings();
+        withdrawalChecking();
+        withdrawalSavings();
+    </script>
 </head>
 <header>
     <h1 class="toptext">
@@ -12,23 +22,25 @@
 </header>
 <body style="padding: 0px; margin:0px; background-image:url('bankvault.jpg'); background-repeat:no-repeat; background-size:cover;">
     <div style="padding-top: 200px">
-        <div class="box">
-            <p>Check Balance</p>
+        <div class="box", onclick="checkCheckingBalance(username)">
+            <p>Check Checking Account Balance</p>
         </div>
     </div>
     <div style="padding-top: 30px">
-        <div class="box">
-            <p></p>
+        <form class="box", onclick="checkSavingsBalance(username)">
+            <p>Check Savings Account Balance</p>
+        </form>
+    </div>
+    <div style="padding-top: 30px">
+        <div class="box", style="text-decoration:none; color: black">
+            <form onsubmit="depositChecking(username)">Deposit Checking: <input type="text", id="depositchecking"><input type="submit"></form>
+            <form onsubmit="depositSavings(username)">Deposit Savings: <input type="text", id="depositsavings"><input type="submit"></form>
         </div>
     </div>
     <div style="padding-top: 30px">
-        <div class="box">
-            <p>View Banking Analytics</p>
-        </div>
-    </div>
-    <div style="padding-top: 30px">
-        <div class="box">
-            <p>FAQs</p>
+        <div class="box", style="text-decoration:none; color: black">
+            <form onsubmit="withdrawalChecking(username)">Withdrawal Checking: <input type="text", id="withdrawalsavings"><input type="submit"></form>
+            <form onsubmit="withdrawalSavings(username)">Withdrawal Savings: <input type="text", id="depositsavings"><input type="submit"></form>
         </div>
     </div>
 </body>
