@@ -6,39 +6,38 @@
     text-decoration:underline;
     background-color:black;
     color:white;
-    left:0px;
-    right:0px;
     width:100%;
     position:absolute;
     height:12%;
-    padding:0px;
-    margin:0px;
-
+    padding:0%;
+    margin:0%;
+    left:0%;
 }
 .box{
     border: 2px solid black;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    color:black;
     padding: 20px;
     width: 20%;
     background-color:azure;
+    
+}
+.center{
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 .box:hover{
     text-decoration:underline;
     color:blue;
 }
-.end{
-    color:white;
-    position:absolute;
-    width: 100%;
-    border: 2px solid black;
-    min-height: 5%;
-    bottom:0px;
-    background-color:black;
-    left:0px;
-}
 .footerbox{
     font-family:stencil;
     text-decoration:underline;
-    padding:5px;
-    left:5px;
     display:inline-block;
+    width:100%;
+    position:fixed;
+    bottom:0%;
 }
