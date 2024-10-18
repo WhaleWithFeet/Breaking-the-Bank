@@ -9,9 +9,9 @@ let savingsBalance = 0;
 window.onload = function() {
     releaseStorage(); 
 };
-
+//
 // Functions which allow an account to be analyzed and stored
-
+//
 function interperetLogin(event){
     releaseStorage(); 
     
@@ -20,7 +20,7 @@ function interperetLogin(event){
     let userinput = document.getElementById("username").value;
     let passinput = document.getElementById("password").value;
     for(let i = 0; i < accounts.length;i++){
-        if((userinput === accounts[i].username) && (passinput === accounts[i].password)){
+        if((userinput === accounts[i].username) && (passinput === accounts[i].password) && (passinput !== "") && (userinput !== "")){
             window.location.href = "homepage.html";
             return;
         }
