@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="homepagestyle.css">
 <html>
 <head> 
     <title>The Bank</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="functions.js">
-        checkCheckingBalance();
-        checkSavingsBalance();
-        depositChecking();
-        depositSavings();
-        withdrawalChecking();
-        withdrawalSavings();
-    </script>
+    <link rel="stylesheet" type="text/css" href="homepagestyle.css">
 </head>
 <header style="width:100%; left:0px; z-index:399">
-    <a href="https://youtu.be/D7LX93KEFLA", class="toptext">
+    <a href="https://youtu.be/D7LX93KEFLA" class="toptext">
         <img src="vaultdoor.jpg" style="display: block; margin-left: auto; margin-right: auto" alt="Image of vault door" width="300" height="200">
     </a>
 </header>
 <body style="padding: 0px; margin:0px; background-image:url('openvault.png'); background-repeat:no-repeat; background-size:cover;">
-    <div class="center", style="padding-top:15%">
-        <div class="box", onclick="checkCheckingBalance()">
+    <div class="center" style="padding-top:15%">
+        <div class="box" onclick="checkCheckingBalance()">
             <p>Check Checking Account Balance</p>
         </div>
     </div>
     <div class="center">
-        <form class="box", onclick="checkSavingsBalance()">
+        <div class="box" onclick="checkSavingsBalance()">
             <p>Check Savings Account Balance</p>
-        </form>
-    </div>
-    <div class="center">
-        <div class="box", style="text-decoration:none; color: black">
-            <form onsubmit="depositChecking()">Deposit Checking: <input type="text", id="depositchecking"><input type="submit"></form>
-            <form onsubmit="depositSavings()">Deposit Savings: <input type="text", id="depositsavings"><input type="submit"></form>
         </div>
     </div>
     <div class="center">
-        <div class="box", style="text-decoration:none; color: black">
-            <form onsubmit="withdrawalChecking()">Withdrawal Checking: <input type="text", id="withdrawalsavings"><input type="submit"></form>
-            <form onsubmit="withdrawalSavings()">Withdrawal Savings: <input type="text", id="depositsavings"><input type="submit"></form>
+        <div class="box" style="text-decoration:none; color: black">
+            <form id="depositCheckingForm">
+                Deposit Checking: <input type="text" id="depositchecking">
+                <input type="submit" value="Submit">
+            </form>
+            <form id="depositSavingsForm">
+                Deposit Savings: <input type="text" id="depositsavings">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <div class="center">
+        <div class="box" style="text-decoration:none; color: black">
+            <form id="withdrawalCheckingForm">
+                Withdrawal Checking: <input type="text" id="withdrawalchecking">
+                <input type="submit" value="Submit">
+            </form>
+            <form id="withdrawalSavingsForm">
+                Withdrawal Savings: <input type="text" id="withdrawalsavings">
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </div>
 </body>
@@ -50,4 +54,13 @@
         </div>
     </div>
 </footer>
+<script src="functions.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("depositCheckingForm").addEventListener("submit", depositChecking);
+        document.getElementById("depositSavingsForm").addEventListener("submit", depositSavings);
+        document.getElementById("withdrawalCheckingForm").addEventListener("submit", withdrawalChecking);
+        document.getElementById("withdrawalSavingsForm").addEventListener("submit", withdrawalSavings);
+    });
+</script>
 </html>

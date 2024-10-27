@@ -3,9 +3,6 @@ let accounts = [
     
 ];
 
-let checkingBalance = 0;
-let savingsBalance = 0;
-
 window.onload = function() {
     releaseStorage(); 
 };
@@ -42,16 +39,14 @@ function interperetSignUp(event){
             return;
         }
     }
-    addAccount(userinput, passinput, 0, 0);
+    addAccount(userinput, passinput);
     window.location.href = "login.html";
 }
 
-function addAccount(username, password, checkingBalance, savingsBalance){
+function addAccount(username, password){
     const temp_account = {
         username: username,
         password: password,
-        checkingbalance: checkingBalance,
-        savingsbalance: savingsBalance
     };
     accounts.push(temp_account);
     storeAccounts();
@@ -67,47 +62,100 @@ function releaseStorage(){
     }
 }
 //
-//Functions involving transactions within the account
+//The Account class
 //
-function checkCheckingBalance(accNum){
-    alert("Your current balance is $" + accounts[accNum].checkingBalance);
-    return;
-}
-function checkSavingsBalance(accNum){
-    alert("Your current balance is $" + accounts[accNum].savingsBalance);
-    return;
-}
-function depositChecking(accNum, amount){
-    if(amount >= 0.00 && Number(amount) == amount) {
-        accounts[accNum].checkingBalance += amount;
-        alert("Operation successful.");
-        return;
+class Account {
+    constructor(username, password) {
+        this.username = username;
+        this.password = password;
+        this.checkingBalance = 0;
+        this.savingsBalance = 0;
     }
-    alert("Invalid operation: type error or invalid amount entered.");
-}
-function withdrawalChecking(accNum, amount){
-    if(amount >= 0.00 && Number(amount) == amount && amount <= checkingBalance) {
-        accounts[accNum].checkingBalance -= amount;
-        alert("Operation successful.");
-        return;
+    checkCheckingBalance() {
+        alert("Your current checking balance is $" + this.checkingBalance.toFixed(2));
     }
-    alert("Invalid operation: type error or invalid amount entered.");
-}
-function depositSavings(accNum, amount){
-    if(amount >= 0.00 && Number(amount) == amount) {
-        accounts[accNum].savingsBalance += amount;
-        alert("Operation successful.");
-        return;
+    checkSavingsBalance() {
+        alert("Your current savings balance is $" + this.savingsBalance.toFixed(2));
     }
-    alert("Invalid operation: type error or invalid amount entered.");
-}
-function withdrawalSavings(accNum, amount){
-    if(amount >= 0.00 && Number(amount) == amount && amount <= savingsBalance) {
-        accounts[accNum].savingsBalance -= amount;
-        alert("Operation successful.");
-        return;
+    depositChecking(amount) {
+        amount = parseFloat(amount);
+        if (amount >= 0.00 && !isNaN(amount)) {
+            this.checkingBalance += amount;
+            alert("Operation successful.");
+            return;
+        }
+        alert("Invalid operation: type error or invalid amount entered.");
     }
-    alert("Invalid operation: type error or invalid amount entered.");
+    withdrawalChecking(amount) {
+        amount = parseFloat(amount);
+        if (amount >= 0.00 && !isNaN(amount) && amount <= this.checkingBalance) {
+            this.checkingBalance -= amount;
+            alert("Operation successful.");
+            return;
+        }
+            alert("Invalid operation: insufficient funds, type error, or invalid amount entered.");
+    }
+    depositSavings(amount) {
+        amount = parseFloat(amount);
+        if (amount >= 0.00 && !isNaN(amount)) {
+            this.savingsBalance += amount;
+            alert("Operation successful");
+            return;
+        }
+            alert("Invalid operation: type error or invalid amount entered.");
+    }
+    withdrawalSavings(amount) {
+        amount = parseFloat(amount);
+        if (amount >= 0.00 && !isNaN(amount) && amount <= this.savingsBalance) {
+            this.savingsBalance -= amount;
+            alert("Operation successful.");
+            return;
+        }
+        alert("Invalid operation: insufficient funds, type error, or invalid amount entered.");
+    }
+}
+//
+//Test instance of an account class
+//
+const myAccount = new Account("kh", "pass");
+
+// 
+//Functions to handle account operation submissions
+//
+function checkCheckingBalance() {
+    myAccount.checkCheckingBalance();
+}
+
+function checkSavingsBalance() {
+    myAccount.checkSavingsBalance();
+}
+function depositChecking(event) {
+    event.preventDefault();
+    const amountInput = document.getElementById("depositchecking");
+    const amount = amountInput.value;
+    myAccount.depositChecking(amount);
+    amountInput.value = "";
+}
+function depositSavings(event) {
+    event.preventDefault();
+    const amountInput = document.getElementById("depositsavings");
+    const amount = amountInput.value;
+    myAccount.depositSavings(amount);
+    amountInput.value = ""; 
+}
+function withdrawalChecking(event) {
+    event.preventDefault();
+    const amountInput = document.getElementById("withdrawalchecking");
+    const amount = amountInput.value;
+    myAccount.withdrawalChecking(amount);
+    amountInput.value = ""; 
+}
+function withdrawalSavings(event) {
+    event.preventDefault();
+    const amountInput = document.getElementById("withdrawalsavings");
+    const amount = amountInput.value;
+    myAccount.withdrawalSavings(amount);
+    amountInput.value = "";
 }
 //
 // API calls
