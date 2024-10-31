@@ -174,16 +174,16 @@ function withdrawalSavings(event) {
 }
 function logout() {
     if (loggedAccount) {
-        saveAccount(); // Ensure account data is saved before logout
+        saveAccount();
     }
-    localStorage.removeItem('loggedInUser'); // Clear the session
+    localStorage.removeItem('loggedInUser');
     loggedAccount = null;
     window.location.href = "login.html";
 }
 function saveAccount() {
     if (loggedAccount) {
-        accounts[loggedAccount.username] = loggedAccount; // Update account data
-        storeAccounts(); // Save to localStorage
+        accounts[loggedAccount.username] = loggedAccount;
+        storeAccounts();
     }
 }
 //
