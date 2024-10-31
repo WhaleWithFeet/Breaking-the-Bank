@@ -138,7 +138,7 @@ function depositChecking(event) {
     const amount = amountInput.value;
     if (loggedAccount) {
         loggedAccount.depositChecking(amount);
-        saveLoggedInAccount();
+        saveAccount();
     }
     amountInput.value = "";
 }
@@ -148,7 +148,7 @@ function depositSavings(event) {
     const amount = amountInput.value;
     if (loggedAccount) {
         loggedAccount.depositSavings(amount);
-        saveLoggedInAccount();
+        saveAccount();
     }
     amountInput.value = ""; 
 }
@@ -158,7 +158,7 @@ function withdrawalChecking(event) {
     const amount = amountInput.value;
     if (loggedAccount) {
         loggedAccount.withdrawalChecking(amount);
-        saveLoggedInAccount();
+        saveAccount();
     }
     amountInput.value = ""; 
 }
@@ -168,19 +168,19 @@ function withdrawalSavings(event) {
     const amount = amountInput.value;
     if (loggedAccount) {
         loggedAccount.withdrawalSavings(amount);
-        saveLoggedInAccount();
+        saveAccount();
     }
     amountInput.value = "";
 }
 function logout() {
     if (loggedAccount) {
-        saveLoggedInAccount(); // Ensure account data is saved before logout
+        saveAccount(); // Ensure account data is saved before logout
     }
     localStorage.removeItem('loggedInUser'); // Clear the session
     loggedAccount = null;
     window.location.href = "login.html";
 }
-function saveLoggedInAccount() {
+function saveAccount() {
     if (loggedAccount) {
         accounts[loggedAccount.username] = loggedAccount; // Update account data
         storeAccounts(); // Save to localStorage
