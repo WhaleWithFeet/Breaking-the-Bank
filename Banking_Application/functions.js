@@ -1,64 +1,61 @@
 
-let accounts = [
-    
-];
-
+const accounts = {
+    "user1" : {password: "pass123"}
+};
+let loggedAccount = null;
 window.onload = function() {
     releaseStorage(); 
 };
 //
 // Functions which allow an account to be analyzed and stored
 //
-function interperetLogin(event){
+function interperetLogin(event) {
     releaseStorage(); 
-    
     event.preventDefault();
-    
-    let userinput = document.getElementById("username").value;
-    let passinput = document.getElementById("password").value;
-    for(let i = 0; i < accounts.length;i++){
-        if((userinput === accounts[i].username) && (passinput === accounts[i].password) && (passinput !== "") && (userinput !== "")){
-            window.location.href = "homepage.html";
-            return;
-        }
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    const account = accounts[username];
+    if (account && account.password === password) {
+        loggedAccount = account; 
+        localStorage.setItem("loggedInUser", username);
+        alert("Login successful");
+        window.location.href = "homepage.html";
+    } else {
+        alert("You entered an incorrect username or password. Try again.");
     }
-
-    alert("You put in a username or password which is not in our database. Try again.");
-
 }
 
 function interperetSignUp(event){
-
     event.preventDefault();
-    
-    let userinput = document.getElementById("username").value;
-    let passinput = document.getElementById("password").value;
-    for(let i = 0; i < accounts.length;i++){
-        if((userinput === accounts[i].username) && (passinput === accounts[i].password)){
-            alert("Someone already has that username, try again");
-            return;
-        }
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    if(!accounts[username]) {
+        accounts[username] = new Account(username, password);
+        storeAccounts();
+        alert("Account created successfully.");
+        window.location.href = "login.html";
     }
-    addAccount(userinput, passinput);
-    window.location.href = "login.html";
-}
-
-function addAccount(username, password){
-    const temp_account = {
-        username: username,
-        password: password,
-    };
-    accounts.push(temp_account);
-    storeAccounts();
+    else {
+        alert("An account already exists by that username. Try again.")
+        return;
+    }
 }
 
 function storeAccounts(){
     localStorage.setItem('VaultAccounts', JSON.stringify(accounts));
 }
-function releaseStorage(){
-    let temp_account = JSON.parse(localStorage.getItem('VaultAccounts')) || [];
-    for(let i = 0; i < temp_account.length;i++){
-        accounts.push(temp_account[i]);
+function releaseStorage() {
+    const storedAccounts = JSON.parse(localStorage.getItem('VaultAccounts')) || {};
+    for (let username in storedAccounts) {
+        const storedAccount = storedAccounts[username];
+        const account = new Account(username, storedAccount.password);
+        account.checkingBalance = storedAccount.checkingBalance || 0;
+        account.savingsBalance = storedAccount.savingsBalance || 0;
+        accounts[username] = account;
+    }
+    const loggedInUsername = localStorage.getItem('loggedInUser');
+    if (loggedInUsername && accounts[loggedInUsername]) {
+        loggedAccount = accounts[loggedInUsername];
     }
 }
 //
@@ -72,10 +69,13 @@ class Account {
         this.savingsBalance = 0;
     }
     checkCheckingBalance() {
-        alert("Your current checking balance is $" + this.checkingBalance.toFixed(2));
+        const balance = this.checkingBalance ?? 0;
+        alert("Your current checking balance is $" + balance.toFixed(2));
     }
+
     checkSavingsBalance() {
-        alert("Your current savings balance is $" + this.savingsBalance.toFixed(2));
+        const balance = this.savingsBalance ?? 0;
+        alert("Your current savings balance is $" + balance.toFixed(2));
     }
     depositChecking(amount) {
         amount = parseFloat(amount);
@@ -114,48 +114,77 @@ class Account {
         alert("Invalid operation: insufficient funds, type error, or invalid amount entered.");
     }
 }
-//
-//Test instance of an account class
-//
-const myAccount = new Account("kh", "pass");
 
 // 
 //Functions to handle account operation submissions
 //
 function checkCheckingBalance() {
-    myAccount.checkCheckingBalance();
+    if (loggedAccount) {
+        loggedAccount.checkCheckingBalance();
+    } else {
+        alert("No account is currently logged in.");
+    }
 }
-
 function checkSavingsBalance() {
-    myAccount.checkSavingsBalance();
+    if (loggedAccount) {
+        loggedAccount.checkSavingsBalance();
+    } else {
+        alert("No account is currently logged in.");
+    }
 }
 function depositChecking(event) {
     event.preventDefault();
     const amountInput = document.getElementById("depositchecking");
     const amount = amountInput.value;
-    myAccount.depositChecking(amount);
+    if (loggedAccount) {
+        loggedAccount.depositChecking(amount);
+        saveLoggedInAccount();
+    }
     amountInput.value = "";
 }
 function depositSavings(event) {
     event.preventDefault();
     const amountInput = document.getElementById("depositsavings");
     const amount = amountInput.value;
-    myAccount.depositSavings(amount);
+    if (loggedAccount) {
+        loggedAccount.depositSavings(amount);
+        saveLoggedInAccount();
+    }
     amountInput.value = ""; 
 }
 function withdrawalChecking(event) {
     event.preventDefault();
     const amountInput = document.getElementById("withdrawalchecking");
     const amount = amountInput.value;
-    myAccount.withdrawalChecking(amount);
+    if (loggedAccount) {
+        loggedAccount.withdrawalChecking(amount);
+        saveLoggedInAccount();
+    }
     amountInput.value = ""; 
 }
 function withdrawalSavings(event) {
     event.preventDefault();
     const amountInput = document.getElementById("withdrawalsavings");
     const amount = amountInput.value;
-    myAccount.withdrawalSavings(amount);
+    if (loggedAccount) {
+        loggedAccount.withdrawalSavings(amount);
+        saveLoggedInAccount();
+    }
     amountInput.value = "";
+}
+function logout() {
+    if (loggedAccount) {
+        saveLoggedInAccount(); // Ensure account data is saved before logout
+    }
+    localStorage.removeItem('loggedInUser'); // Clear the session
+    loggedAccount = null;
+    window.location.href = "login.html";
+}
+function saveLoggedInAccount() {
+    if (loggedAccount) {
+        accounts[loggedAccount.username] = loggedAccount; // Update account data
+        storeAccounts(); // Save to localStorage
+    }
 }
 //
 // API calls
