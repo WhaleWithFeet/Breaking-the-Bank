@@ -1,6 +1,5 @@
 
 const accounts = {
-    "user1" : {password: "pass123"}
 };
 let loggedAccount = null;
 window.onload = function() {
