@@ -5,14 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="functions.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="financialpagestyle.css">
     <title>Stocks</title>
 </head>
 <body>
+    
     <canvas id="myChart" width="50" height="25"></canvas>
     <div style="text-align: center">
         <input type="text" id="stock_ticker" placeholder="Ticker"/>
         <br>
         <button id="create_graph">Show Given Stocks Graph</button>
+    </div>
+    <h3 style="text-align: center">List of Stock Tickers with company name</h3>
+    <div class="container">
+        <div class="box">
+            <ul id="ticker_nest">
+                
+            </ul>
+        </div>
+        <div class="box">
+            <ul id="ticker_nest2">
+                
+            </ul>
+        </div>
     </div>
 </body>
 </html>

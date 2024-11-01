@@ -206,40 +206,62 @@ function saveAccount() {
 //
 // API calls
 //
-async function getStockInfo(){
+
+async function getStockInfo(stock_name){
+     try{
+        const response = await fetch("https://api.polygon.io/v2/aggs/ticker/" + stock_name + "/range/1/day/2023-01-09/2023-02-10?adjusted=true&sort=asc&apiKey=ynz12GyWGUsmiJni91lapm5j5guVpf5i");
+        if(!response.ok){
+             alert("call did not go through")
+         }
+        const stocks = await response.json();
+        return stocks;
+     } catch(error){
+        alert("call did not go through 2", error);
+     }
+       
+}
+async function getStockTickers(){
     try{
-        const response = await fetch('https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09/2023-02-10?adjusted=true&sort=asc&apiKey=ynz12GyWGUsmiJni91lapm5j5guVpf5i');
+        const response = await fetch("https://api.polygon.io/v3/reference/tickers?active=true&limit=100&apiKey=ynz12GyWGUsmiJni91lapm5j5guVpf5i");
         if(!response.ok){
             alert("call did not go through")
         }
-        const stocks = await response.json();
-        return stocks;
-    } catch(error){
+        const tickers = await response.json();
+        return tickers;
+    }catch(error){
         alert("call did not go through 2", error);
-    }
-   
+     }
 }
 //
 // Stock Graph
 //
+let chart;
 document.addEventListener("DOMContentLoaded", function() {
-    window.ctx = document.getElementById('myChart').getContext('2d');
-    printStocks();
+    const ctx = document.getElementById('myChart').getContext('2d');
+    document.getElementById('create_graph').addEventListener('click', function() {
+        const stockTicker = document.getElementById('stock_ticker').value;
+        printStocks(stockTicker, ctx);
+    })
+    implementTickers();
 });
-
-async function printStocks(){
-    const stocks = await getStockInfo();
+async function printStocks(stock_ticker, ctx){
+    const stocks = await getStockInfo(stock_ticker);
     const results = stocks ? stocks.results : [];      // Array of daily stock data
-    
+        
     const dates = results.map(item => new Date(item.t).toLocaleDateString());
     const prices = results.map(item => item.c);
-
-    new Chart(ctx, {
+    
+        
+    if(chart){
+        chart.destroy();
+    }
+    
+    chart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: dates,
             datasets: [{
-                label: "AAPL Stock Price",
+                label: stock_ticker + " Stock Price",
                 data: prices,
                 backgroundColor: "rgba(10, 20, 30, .2)",
                 borderColor: 'rgba(0, 0, 0, 1)',
@@ -255,4 +277,27 @@ async function printStocks(){
             }
         }
     });
+}
+//
+// Stock Ticker Addition
+//
+async function implementTickers(){
+    let tracker = 0;
+    const tickerlist = await getStockTickers();
+    const tickers = tickerlist ? tickerlist.results : []; 
+    const ticker_nest = document.getElementById('ticker_nest');
+    const ticker_nest2 = document.getElementById('ticker_nest2');
+
+
+    tickers.forEach(singularticker => {
+        tracker += 1;
+        const list = document.createElement('li');
+        list.textContent = singularticker.ticker + ": " + singularticker.name;
+        if(tracker <= 50){
+            ticker_nest.appendChild(list);
+        }
+        else{
+            ticker_nest2.appendChild(list);
+        }
+    })
 }
