@@ -135,6 +135,9 @@ function depositChecking(event) {
     event.preventDefault();
     const amountInput = document.getElementById("depositchecking");
     const amount = amountInput.value;
+    if(amount == 0) {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
     if (loggedAccount) {
         loggedAccount.depositChecking(amount);
         saveAccount();
@@ -145,6 +148,9 @@ function depositSavings(event) {
     event.preventDefault();
     const amountInput = document.getElementById("depositsavings");
     const amount = amountInput.value;
+    if(amount == 0) {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
     if (loggedAccount) {
         loggedAccount.depositSavings(amount);
         saveAccount();
@@ -155,9 +161,15 @@ function withdrawalChecking(event) {
     event.preventDefault();
     const amountInput = document.getElementById("withdrawalchecking");
     const amount = amountInput.value;
+    if(amount == 0) {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
     if (loggedAccount) {
         loggedAccount.withdrawalChecking(amount);
         saveAccount();
+    }
+    if(amount >= loggedAccount.checkingBalance) {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }
     amountInput.value = ""; 
 }
@@ -165,9 +177,15 @@ function withdrawalSavings(event) {
     event.preventDefault();
     const amountInput = document.getElementById("withdrawalsavings");
     const amount = amountInput.value;
+    if(amount == 0) {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
     if (loggedAccount) {
         loggedAccount.withdrawalSavings(amount);
         saveAccount();
+    }
+    if(amount >= loggedAccount.checkingBalance) {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }
     amountInput.value = "";
 }
@@ -188,9 +206,9 @@ function saveAccount() {
 //
 // API calls
 //
-async function getStockInfo(stock_name){
+async function getStockInfo(){
     try{
-        const response = await fetch("https://api.polygon.io/v2/aggs/ticker/" + stock_name + "/range/1/day/2023-01-09/2023-02-10?adjusted=true&sort=asc&apiKey=ynz12GyWGUsmiJni91lapm5j5guVpf5i");
+        const response = await fetch('https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09/2023-02-10?adjusted=true&sort=asc&apiKey=ynz12GyWGUsmiJni91lapm5j5guVpf5i');
         if(!response.ok){
             alert("call did not go through")
         }
@@ -204,32 +222,24 @@ async function getStockInfo(stock_name){
 //
 // Stock Graph
 //
-let chart;
 document.addEventListener("DOMContentLoaded", function() {
-    const ctx = document.getElementById('myChart').getContext('2d');
-    document.getElementById('create_graph').addEventListener('click', function() {
-        const stockTicker = document.getElementById('stock_ticker').value;
-        printStocks(stockTicker, ctx);
-    })
+    window.ctx = document.getElementById('myChart').getContext('2d');
+    printStocks();
 });
 
-async function printStocks(stock_ticker, ctx){
-    const stocks = await getStockInfo(stock_ticker);
+async function printStocks(){
+    const stocks = await getStockInfo();
     const results = stocks ? stocks.results : [];      // Array of daily stock data
     
     const dates = results.map(item => new Date(item.t).toLocaleDateString());
     const prices = results.map(item => item.c);
 
-    if(chart){
-        chart.destroy();
-    }
-
-    chart = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'line',
         data: {
             labels: dates,
             datasets: [{
-                label: stock_ticker + " Stock Price",
+                label: "AAPL Stock Price",
                 data: prices,
                 backgroundColor: "rgba(10, 20, 30, .2)",
                 borderColor: 'rgba(0, 0, 0, 1)',
