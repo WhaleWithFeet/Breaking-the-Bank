@@ -8,22 +8,27 @@
     <link rel="stylesheet" type="text/css" href="financialpagestyle.css">
     <title>Stocks</title>
 </head>
-<body>
+<body style="padding-bottom: 0px; margin:0px; background-image:url('closedvault.png'); background-repeat:no-repeat; background-size:cover;">
+    <header style="width:100%; left:0px;text-align: center;display:block;font-size:30px;font-family:stencil;text-decoration:underline;background-color:black;color:white;width:100%;position:fixed;height:15%;padding:0%;margin:0%;left:0%;top:0%">   
+        <a href="realhomepage.html">
+            <img src="vaultdoor.jpg" style="display: block; margin-left: auto; margin-right: auto" alt="Image of vault door" width="300" height="200">
+        </a> 
+    </header>
     
-    <canvas id="myChart" width="50" height="25"></canvas>
+    <canvas style="padding-top: 250px" id="myChart" width="50" height="25"></canvas>
     <div style="text-align: center">
         <input type="text" id="stock_ticker" placeholder="Ticker"/>
         <br>
         <button id="create_graph">Show Given Stocks Graph</button>
     </div>
-    <h3 style="text-align: center">List of Stock Tickers with company name</h3>
+    <h3 style="text-align: center;color:white">List of Stock Tickers with company name</h3>
     <div class="container">
-        <div class="box">
+        <div style="color:white" class="box">
             <ul id="ticker_nest">
                 
             </ul>
         </div>
-        <div class="box">
+        <div style="color:white" class="box">
             <ul id="ticker_nest2">
                 
             </ul>

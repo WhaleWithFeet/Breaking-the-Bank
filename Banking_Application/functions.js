@@ -263,16 +263,31 @@ async function printStocks(stock_ticker, ctx){
             datasets: [{
                 label: stock_ticker + " Stock Price",
                 data: prices,
-                backgroundColor: "rgba(10, 20, 30, .2)",
+                backgroundColor: "rgba(0, 255, 0, 1)",
                 borderColor: 'rgba(0, 0, 0, 1)',
                 borderWidth: 1,
                 fill: true
             }]
         },
         options: {
+            plugins: {
+                legend: {
+                    labels:{
+                        color: 'rgba(255, 255, 255, 1)'
+                    }
+                }
+            },
             scales: {
+                x: {
+                    ticks:{
+                        color: 'rgba(255, 255, 255, 1)'
+                    }
+                },
                 y: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    ticks:{
+                        color: 'rgba(255, 255, 255, 1)'
+                    }
                 }
             }
         }
