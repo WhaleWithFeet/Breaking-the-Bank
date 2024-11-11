@@ -232,6 +232,19 @@ async function getStockTickers(){
         alert("call did not go through 2", error);
      }
 }
+async function getStockNews(){
+    try{
+        const response = await fetch("https://api.polygon.io/v2/reference/news?limit=10&apiKey=ynz12GyWGUsmiJni91lapm5j5guVpf5i");
+        if(!response.ok){
+            alert("call did not go through")
+        }
+        const tickers = await response.json();
+        return tickers;
+    }catch(error){
+        alert("call did not go through 2", error);
+     }
+}
+
 //
 // Stock Graph
 //
@@ -243,6 +256,7 @@ document.addEventListener("DOMContentLoaded", function() {
         printStocks(stockTicker, ctx);
     })
     implementTickers();
+    implementNews();
 });
 async function printStocks(stock_ticker, ctx){
     const stocks = await getStockInfo(stock_ticker);
@@ -314,5 +328,22 @@ async function implementTickers(){
         else{
             ticker_nest2.appendChild(list);
         }
+    })
+}
+//
+// Stock News Addition
+//
+async function implementNews(){
+    const newslist = await getStockNews();
+    const news = newslist ? newslist.results : []; 
+    const news_nest = document.getElementById('news_nest');
+
+    news.forEach(singulararticle => {
+        const list = document.createElement('p');
+        
+        list.innerHTML = singulararticle.title + '<br>' + "Publisher:" +  singulararticle.publisher.name + '<br>' + "Author:" + singulararticle.author + '</br>' + "Link to Webpage:" + '<a href="' + singulararticle.article_url + '">' + "LINK" + '</a>' + '<br>' + '<img src="' + '<br>' + '</br>';
+
+        news_nest.appendChild(list);
+    
     })
 }
