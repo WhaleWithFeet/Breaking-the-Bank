@@ -18,7 +18,7 @@ function interperetLogin(event) {
         loggedAccount = account; 
         localStorage.setItem("loggedInUser", username);
         alert("Login successful");
-        window.location.href = "homepage.html";
+        window.location.href = "account.html";
     } else {
         alert("You entered an incorrect username or password. Try again.");
     }
@@ -334,6 +334,7 @@ async function implementTickers(){
 // Stock News Addition
 //
 async function implementNews(){
+    let tracker = 0;
     const newslist = await getStockNews();
     const news = newslist ? newslist.results : []; 
     const news_nest = document.getElementById('news_nest');
@@ -341,7 +342,7 @@ async function implementNews(){
     news.forEach(singulararticle => {
         const list = document.createElement('p');
         
-        list.innerHTML = singulararticle.title + '<br>' + "Publisher:" +  singulararticle.publisher.name + '<br>' + "Author:" + singulararticle.author + '</br>' + "Link to Webpage:" + '<a href="' + singulararticle.article_url + '">' + "LINK" + '</a>' + '<br>' + '<img src="' + '<br>' + '</br>';
+        list.innerHTML = '<p class="box">' + singulararticle.title + '<br>' + "Publisher:" +  singulararticle.publisher.name + '<br>' + "Author:" + singulararticle.author + '</br>' + "Link to Webpage:" + '<a href="' + singulararticle.article_url + '">' + "LINK" + '</a>' + '<br>' + '<img src="' + '<br>' + '</br>' + '</p>';
 
         news_nest.appendChild(list);
     
