@@ -48,7 +48,14 @@
     </div>
     <div class="center">
         <div class="box" style="text-decoration:none; color: black">
-            <a href="transaction_history.html">Transaction History</a>
+            <form id="checkingToSavingsForm">
+                Transfer from Checking to Savings: <input type="text" id="checkingToSavings">
+                <input type="submit" value="Submit">
+            </form>
+            <form id="savingsToCheckingForm">
+                Transfer from Savings to Checking: <input type="text" id="savingsToChecking">
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </div>
     <div class="center">
@@ -76,6 +83,9 @@
         document.getElementById("depositSavingsForm").addEventListener("submit", depositSavings);
         document.getElementById("withdrawalCheckingForm").addEventListener("submit", withdrawalChecking);
         document.getElementById("withdrawalSavingsForm").addEventListener("submit", withdrawalSavings);
+        document.getElementById("checkingToSavingsForm").addEventListener("submit", checkingToSavings);
+        document.getElementById("savingsToCheckingForm").addEventListener("submit", savingsToChecking);
+
     });
 </script>
 </html>

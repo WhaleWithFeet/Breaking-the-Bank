@@ -112,6 +112,27 @@ class Account {
         }
         alert("Invalid operation: insufficient funds, type error, or invalid amount entered.");
     }
+    checkingToSavings(amount) {
+        amount = parseFloat(amount);
+        if(amount >= 0.00 && !isNaN(amount) && amount <= this.checkingBalance) {
+            this.checkingBalance -= amount;
+            this.savingsBalance += amount;
+            alert("Operation successful.");
+            return;
+        }
+        alert("Invalid operation: insufficient funds, type error, or invalid amount entered.");
+    }
+    savingsToChecking(amount) {
+        amount = parseFloat(amount);
+        if(amount >= 0.00 && !isNaN(amount) && amount <= this.savingsBalance) {
+            this.savingsBalance -= amount;
+            this.checkingBalance += amount;
+            alert("Operation successful.");
+            return;
+        }
+        alert("Invalid operation: insufficient funds, type error, or invalid amount entered.");
+    }
+    
 }
 
 // 
@@ -189,6 +210,24 @@ function withdrawalSavings(event) {
     }
     amountInput.value = "";
 }
+function checkingToSavings() {
+    event.preventDefault();
+    const amountInput = document.getElementById("checkingToSavings");
+    const amount = amountInput.value;
+    if(loggedAccount) {
+        loggedAccount.checkingToSavings(amount);
+        saveAccount();
+    }
+}
+function savingsToChecking() {
+    event.preventDefault();
+    const amountInput = document.getElementById("savingsToChecking");
+    const amount = amountInput.value;
+    if(loggedAccount) {
+        loggedAccount.savingsToChecking(amount);
+        saveAccount();
+    }
+}
 function logout() {
     if (loggedAccount) {
         saveAccount();
@@ -203,6 +242,7 @@ function saveAccount() {
         storeAccounts();
     }
 }
+
 //
 // API calls
 //
