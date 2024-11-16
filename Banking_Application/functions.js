@@ -14,7 +14,7 @@ window.onload = function() {
 //
 //
 //
-function interperetLogin(event) {
+function interpretLogin(event) {
     // First release all the stored accounts, so that we can interpret who is logging in.
     releaseStorage(); 
     event.preventDefault();
@@ -36,7 +36,7 @@ function interperetLogin(event) {
     }
 }
 
-function interperetSignUp(event){
+function interpretSignUp(event){
     event.preventDefault();
     // Gather the user name and password from the sign up pages text fields, and add the text into the variables username and password.
     let username = document.getElementById("username").value;
