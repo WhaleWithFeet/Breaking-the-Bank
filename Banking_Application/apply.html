@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="applicationpagestyle.css">
+    <script src = "functions.js">
+        applyemail(event);
+    </script>
+    <title>APPLICATION</title>
+</head>
+<body style="padding: 0px; margin:0px; background-image:url('closedvault.png'); background-repeat:no-repeat; background-size:cover;">
+    <header style="width:100%; left:0px;text-align: center;display:block;font-size:30px;font-family:stencil;text-decoration:underline;background-color:black;color:white;width:100%;position:fixed;height:15%;padding:0%;margin:0%;left:0%;top:0%">   
+        <a href="realhomepage.html">
+            <img src="vaultdoor.jpg" style="display: block; margin-left: auto; margin-right: auto" alt="Image of vault door" width="300" height="200">
+        </a> 
+    </header>
+    <h1 style="text-align: center; margin-top: 250px; color: white;">APPLICATION</h1>
+    <div class="container">
+        <div style="color:black" class="box">
+            <h3>*FIRST NAME</h3>
+            <input type="text" id="first_name" placeholder="Enter your last name">
+        </div>
+        <div style="color:black" class="box">
+            <h3>*LAST NAME</h3>
+            <input type="text" id="last_name" placeholder="Enter your last name">
+        </div>
+    </div>
+    <div class="container">
+        <div style="color:black" class="box">
+            <h3>*EMAIL</h3>
+            <input type="text" id="email" placeholder="Enter your email">
+        </div>
+        <div style="color:black" class="box">
+            <h3>SMALL MESSAGE</h3>
+            <input type="text" id="message" placeholder="Enter a little message">
+        </div>
+    </div>
+    <br>
+    <br>
+    <form  onsubmit="applyemail(event)">
+        <div style="text-align: center;">
+            <button id="APPLICATION">APPLY</button>
+        </div>
+    </form>
+</body>
+</html>

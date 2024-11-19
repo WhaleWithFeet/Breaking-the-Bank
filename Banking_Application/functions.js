@@ -510,4 +510,42 @@ async function implementNews(){
         news_nest.appendChild(list);
     })
 }
+//
+//
+//
+// APLLICATION
+//
+//
+//
+//
+function applyemail(event){
+    const Firstname = document.getElementById('first_name').innerText;
+    const Lastname = document.getElementById('last_name').innerText;
+    const email = document.getElementById('email').innerText;
+    const message = document.getElementById('message').innerText;
+    bodyMessage = Firstname + ' ' + Lastname + ' ' + email + ' ' + message;
+    if(!(isNan(Firstname) || isNan(Lastname) || isNan(email))){
+        fetch('/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                to: 'imnotputtingmyemailoutongithub',
+                subject: 'APPLICANT',
+                body: bodyMessage
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Your application was sent.');
+            }
+            else{
+                alert('Your application was not sent, try again.');
+            }
+        });
+        
+    }
+    else{
+        alert('Please fill out all required text marked with a * symbol.');
+    }
+}
 
