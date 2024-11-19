@@ -279,9 +279,6 @@ function withdrawalChecking(event) {
         saveAccount();
     }
     // EASTER EGG
-    if(amount >= loggedAccount.checkingBalance) {
-        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    }
     amountInput.value = ""; 
 }
 // A function which gets a users input and takes the money from the users savings balance.
@@ -301,9 +298,6 @@ function withdrawalSavings(event) {
         saveAccount();
     }
     // EASTER EGG
-    if(amount >= loggedAccount.checkingBalance) {
-        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    }
     amountInput.value = "";
 }
 // A function which handles logging out of the active users account back to the login page.
