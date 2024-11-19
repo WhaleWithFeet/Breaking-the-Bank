@@ -518,12 +518,18 @@ async function implementNews(){
 //
 //
 //
+// A function which allows a email to be sent based on the users input.
 function applyemail(event){
+    // The fields from the application
     const Firstname = document.getElementById('first_name').innerText;
     const Lastname = document.getElementById('last_name').innerText;
     const email = document.getElementById('email').innerText;
     const message = document.getElementById('message').innerText;
+
+    // Combining the fields to make a body for the email.
     bodyMessage = Firstname + ' ' + Lastname + ' ' + email + ' ' + message;
+    
+    // Checking to see if the inputs have values inside, if they do then proceed with the email, else send a error message.
     if(!(isNan(Firstname) || isNan(Lastname) || isNan(email))){
         fetch('/send-email', {
             method: 'POST',
