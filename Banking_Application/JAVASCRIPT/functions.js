@@ -73,6 +73,7 @@ function releaseStorage() {
         const account = new Account(username, storedAccount.password);
         account.checkingBalance = storedAccount.checkingBalance || 0;
         account.savingsBalance = storedAccount.savingsBalance || 0;
+        account.transactions = storeAccounts.transaction || [];
         accounts[username] = account;
     }
     // Obtain the current user's account and also add it to the account list variable.
@@ -616,8 +617,13 @@ function applyemail(event){
         alert('Please fill out all required text marked with a * symbol.');
     }
 }
-
-
+//
+//
+//
+// Transaction History
+//
+//
+//
 function renderTransactionHistory(accountId) {
     const account = getAccountById(accountId);
     if (!account) {
