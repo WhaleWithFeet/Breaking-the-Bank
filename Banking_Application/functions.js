@@ -31,6 +31,7 @@ function interpretLogin(event) {
         alert("Login successful");
         // Move to the account page.
         window.location.href = "account.html";
+        sessionStorage.setItem("loggedInUsername", "boby");
     } else {
         alert("You entered an incorrect username or password. Try again.");
     }
@@ -94,6 +95,7 @@ class Account {
         this.password = password;
         this.checkingBalance = 0;
         this.savingsBalance = 0;
+        this.transactions = [];
     }
     // A function which prints out the current checking balance of the user.
     checkCheckingBalance() {
@@ -112,6 +114,16 @@ class Account {
         // Making sure that the value given is in the realm of reason. Then add that value to the users checking account.
         if (amount >= 0.00 && !isNaN(amount)) {
             this.checkingBalance += amount;
+            const transaction = {
+                transactionId: `txn${new Date().getTime()}`,
+                date: new Date().toISOString(),
+                amount: amount,
+                type: "Deposit into Checking",
+                status: "Completed",
+                description: "Deposit to checking account"
+            };
+            this.transactions.push(transaction);
+            storeAccounts();
             alert("Operation successful.");
             return;
         }
@@ -125,6 +137,16 @@ class Account {
         // Checking to see if the given amount is within reason and also within the range of the users checking balance.
         if (amount >= 0.00 && !isNaN(amount) && amount <= this.checkingBalance) {
             this.checkingBalance -= amount;
+            const transaction = {
+                transactionId: `txn${new Date().getTime()}`,
+                date: new Date().toISOString(),
+                amount: amount,
+                type: "Withdraw from Checking",
+                status: "Completed",
+                description: "Withdrawal from checking account"
+            };
+            this.transactions.push(transaction);
+            storeAccounts();
             alert("Operation successful.");
             return;
         }
@@ -138,6 +160,16 @@ class Account {
         // Making sure that the value given is in the realm of reason. Then add that value to the users savings account.
         if (amount >= 0.00 && !isNaN(amount)) {
             this.savingsBalance += amount;
+            const transaction = {
+                transactionId: `txn${new Date().getTime()}`,
+                date: new Date().toISOString(),
+                amount: amount,
+                type: "Deposit into Savings",
+                status: "Completed",
+                description: "Deposit to savings account"
+            };
+            this.transactions.push(transaction);
+            storeAccounts();
             alert("Operation successful");
             return;
         }
@@ -151,6 +183,16 @@ class Account {
         // Checking to see if the given amount is within reason and also within the range of the users savings balance.
         if (amount >= 0.00 && !isNaN(amount) && amount <= this.savingsBalance) {
             this.savingsBalance -= amount;
+            const transaction = {
+                transactionId: `txn${new Date().getTime()}`,
+                date: new Date().toISOString(),
+                amount: amount,
+                type: "Withdraw from Savings",
+                status: "Completed",
+                description: "Withdrawal from savings account"
+            };
+            this.transactions.push(transaction);
+            storeAccounts();
             alert("Operation successful.");
             return;
         }
@@ -165,6 +207,16 @@ class Account {
         if(amount >= 0.00 && !isNaN(amount) && amount <= this.checkingBalance) {
             this.checkingBalance -= amount;
             this.savingsBalance += amount;
+            const transaction = {
+                transactionId: `txn${new Date().getTime()}`,
+                date: new Date().toISOString(),
+                amount: amount,
+                type: "Checking to Savings",
+                status: "Completed",
+                description: "Transfer from Checking to Savings account"
+            };
+            this.transactions.push(transaction);
+            storeAccounts();
             alert("Operation successful.");
             return;
         }
@@ -178,6 +230,16 @@ class Account {
         if(amount >= 0.00 && !isNaN(amount) && amount <= this.savingsBalance) {
             this.savingsBalance -= amount;
             this.checkingBalance += amount;
+            const transaction = {
+                transactionId: `txn${new Date().getTime()}`,
+                date: new Date().toISOString(),
+                amount: amount,
+                type: "Savings to Checking",
+                status: "Completed",
+                description: "Transfer from Savings to Checking account"
+            };
+            this.transactions.push(transaction);
+            storeAccounts();
             alert("Operation successful.");
             return;
         }
@@ -555,3 +617,50 @@ function applyemail(event){
     }
 }
 
+
+function renderTransactionHistory(accountId) {
+    const account = getAccountById(accountId);
+    if (!account) {
+      console.log("Account not found.");
+      return;
+    }
+  
+    // Get the container element where transactions will be displayed
+    const transactionHistoryElement = document.getElementById("transaction-history");
+  
+    // Clear previous content
+    transactionHistoryElement.innerHTML = "";
+  
+    if (account.transactions.length === 0) {
+      transactionHistoryElement.innerHTML = "<p>No transactions found for this account.</p>";
+      return;
+    }
+  
+    // Create a table to display the transactions
+    const table = document.createElement("table");
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${account.transactions.map(transaction => `
+          <tr>
+            <td>${new Date(transaction.date).toLocaleString()}</td>
+            <td>${transaction.amount.toFixed(2)}</td>
+            <td>${transaction.type}</td>
+            <td>${transaction.status}</td>
+            <td>${transaction.description}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    `;
+  
+    // Append the table to the transaction history element
+    transactionHistoryElement.appendChild(table);
+  }
