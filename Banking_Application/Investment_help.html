@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="helppagestyle.css">
     <title>Investment Help</title>
+    <style>
+        img {
+            width: 300px;
+            height: 200px;
+            transition: transform 0.5s, filter 1s, opacity 0.5s;
+        }
+        .chaotic {
+            transform: rotate(720deg) scale(3);
+            filter: blur(5px) brightness(1.5) sepia(1);
+            opacity: 0.2;
+        }
+        .disappear {
+            opacity: 0;
+        }
+        #steveImage {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: auto;
+            z-index: 1000;
+        }
+        #steveImage.show {
+            display: block;
+        }
+    </style>
 </head>
 <body style="padding: 0px; margin:0px; background-image:url('closedvault.png'); background-repeat:no-repeat; background-size:cover;">
     <header style="width:100%; left:0px;text-align: center;display:block;font-size:30px;font-family:stencil;text-decoration:underline;background-color:black;color:white;width:100%;position:fixed;height:15%;padding:0%;margin:0%;left:0%;top:0%">   
@@ -26,7 +54,7 @@
     </div>
     <div style="margin-top: 40px" class="container">
         <div style="color:black">
-            <img src="Finance_Guy2.jpg" style="display: block; margin-left: auto; margin-right: auto" alt="Loan Officer" width="300" height="200">
+            <img id="chaoticImage" src="Finance_Guy2.jpg" style="display: block; margin-left: auto; margin-right: auto" alt="Loan Officer" width="300" height="200">
         </div>
         <div style="color:black" class="text">
             <h3>DECAPRIO LEONARD</h3>
@@ -68,5 +96,31 @@
             <h4>WHAT SUSAN CAN DO FOR YOU: Help with any issues navigating the website, Help with any general problem</h4>
         </div>
     </div>
+
+    
+    <script>
+        const chaoticImage = document.getElementById('chaoticImage');
+        function triggerChaos() {
+            chaoticImage.classList.add('chaotic'); // Apply chaotic transformations
+            chaoticImage.classList.remove('disappear'); // Ensure it is visible during chaos
+
+            // Make it disappear after a short time, then reappear
+            setTimeout(function() {
+                chaoticImage.classList.add('disappear'); // Make it fade out
+            }, 2000);
+
+            // Reappear after disappearing
+            setTimeout(function() {
+                chaoticImage.classList.remove('disappear'); // Make it visible again
+            }, 2500);
+
+            // Reset chaos after a few seconds
+            setTimeout(function() {
+                chaoticImage.classList.remove('chaotic'); // Remove chaotic transformations
+            }, 5000);
+        }
+        chaoticImage.addEventListener('click', triggerChaos);
+
+    </script>
 </body>
 </html>
