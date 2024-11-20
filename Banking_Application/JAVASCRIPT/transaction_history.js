@@ -1,4 +1,5 @@
 window.onload = function() {
+    
     // Load the accounts from localStorage
     let accounts = JSON.parse(localStorage.getItem('VaultAccounts')) || {};
 
